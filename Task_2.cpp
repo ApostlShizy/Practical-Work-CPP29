@@ -129,7 +129,7 @@ int main() {
     std::vector<Shape*> shapes;
     shapes.push_back(new Circle(5.));
     shapes.push_back(new Rectangle(5., 5.));
-    shapes.push_back(new Triangle(3, 4, 5));
+    shapes.push_back(new Triangle(3., 4., 5.));
     for (int i = 0; i < shapes.size(); ++i) {
         shapes[i]->printParams(shapes[i]);
     }
