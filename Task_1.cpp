@@ -36,11 +36,9 @@ class Dog {
     }
 
 public:
-    Dog() {
+    Dog(std::string inName) : name(inName) {
         hisTalents = new Talent * [3];
         char choice;
-        std::cout << "\nEnter dog name : ";
-        std::cin >> name;
         std::cout << "\nHe can swimm (y/n) ? : ";
         std::cin >> choice;
         if (choice == 'y') {
@@ -75,8 +73,7 @@ public:
     }
 };
 
-int main()
-{
-    Dog first;
+int main() {
+    Dog first("Steve");
     first.showHisTalents();
 }

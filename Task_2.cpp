@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include <cassert>
+#include <vector>
 
 struct BoundingBoxDimensions {
     double height = 0.;
@@ -12,10 +13,10 @@ protected:
     BoundingBoxDimensions hisBox;
     std::string type;
 public:
-    virtual std::string * getType() = 0;
-    virtual void printParams(Shape* thisShape) = 0; 
-    virtual double square() = 0; 
-    virtual BoundingBoxDimensions * dimensions() = 0;  
+    virtual std::string* getType() = 0;
+    virtual void printParams(Shape* thisShape) = 0;
+    virtual double square() = 0;
+    virtual BoundingBoxDimensions* dimensions() = 0;
 };
 
 class Circle : virtual public Shape {
@@ -27,11 +28,11 @@ public:
         hisBox.height = inRadius;
         hisBox.width = inRadius;
     }
-    virtual std::string * getType() {
+    virtual std::string* getType() {
         return &type;
     }
     virtual double square() {
-        return 3.1415 * pow(radius,2);
+        return 3.1415 * pow(radius, 2);
     }
     virtual BoundingBoxDimensions* dimensions() {
         return &hisBox;
@@ -48,14 +49,14 @@ class Rectangle : virtual public Shape {
     double width = 0.;
     double height = 0.;
 public:
-    Rectangle(double inWidth, double inHeight) : width(inWidth),height(inHeight) {
+    Rectangle(double inWidth, double inHeight) : width(inWidth), height(inHeight) {
         assert(inWidth > 0.);
         assert(inHeight > 0.);
         type = "rectangle";
         hisBox.width = inWidth;
         hisBox.height = inHeight;
     }
-    virtual std::string * getType() {
+    virtual std::string* getType() {
         return &type;
     }
     virtual double square() {
@@ -78,7 +79,7 @@ class Triangle : virtual public Shape {
     double c = 0.;
     double p = 0.;
 public:
-    Triangle(double inA, double inB, double inC) : a(inA),b(inB),c(inC) {
+    Triangle(double inA, double inB, double inC) : a(inA), b(inB), c(inC) {
         assert(inA > 0.);
         assert(inB > 0.);
         assert(inC > 0.);
@@ -88,11 +89,11 @@ public:
         hisBox.height = temp;
         hisBox.width = temp;
     }
-    virtual std::string * getType() {
+    virtual std::string* getType() {
         return &type;
     }
     virtual double square() {
-        return sqrt(p*(p-a)*(p-b)*(p-c));
+        return sqrt(p * (p - a) * (p - b) * (p - c));
     }
     virtual BoundingBoxDimensions* dimensions() {
         return &hisBox;
@@ -105,13 +106,30 @@ public:
     }
 };
 
+#if 0
+
 int main() {
     Shape** shapes = new Shape * [3];
     shapes[0] = new Circle(5.);
-    shapes[1] = new Rectangle(5.,5.);
-    shapes[2] = new Triangle(3,4,5);
+    shapes[1] = new Rectangle(5., 5.);
+    shapes[2] = new Triangle(3, 4, 5);
     for (int i = 0; i < 3; ++i) {
         shapes[i]->printParams(shapes[i]);
     }
-    delete [] shapes;
+    for (int i = 0; i < 3; ++i) {
+        delete shapes[i];
+    }
+    delete[] shapes;
 }
+#endif
+
+int main() {
+    std::vector<Shape*> shapes;
+    shapes.push_back(new Circle(5.));
+    shapes.push_back(new Rectangle(5., 5.));
+    shapes.push_back(new Triangle(3, 4, 5));
+    for (int i = 0; i < shapes.size(); ++i) {
+        shapes[i]->printParams(shapes[i]);
+    }
+}
+
