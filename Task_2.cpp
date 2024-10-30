@@ -123,6 +123,8 @@ int main() {
 }
 #endif
 
+#if 1
+
 int main() {
     std::vector<Shape*> shapes;
     shapes.push_back(new Circle(5.));
@@ -133,3 +135,4 @@ int main() {
     }
 }
 
+#endif
